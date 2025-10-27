@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html ng-app="employeeApp">
+<head>
+  <meta charset="UTF-8" />
+  <title>Employee Directory with Search</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
+  <script src="app.js"></script>
+</head>
+<body ng-controller="EmployeeController">
+
+  <div class="container">
+    <h1>Employee Directory</h1>
+
+    <!-- Search Input -->
+    <input
+      type="text"
+      ng-model="searchText"
+      placeholder="Search employees..."
+      class="search-box"
+    />
+
+    <!-- Employee Table -->
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Department</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="employee in employees | employeeSearch:searchText">
+          <td>{{ employee.name }}</td>
+          <td>{{ employee.department }}</td>
+          <td>{{ employee.email }}</td>
+        </tr>
+        <tr ng-if="(employees | employeeSearch:searchText).length === 0">
+          <td colspan="3" class="no-results">No employees found</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html>
